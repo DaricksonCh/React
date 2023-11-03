@@ -17,6 +17,15 @@ const ListarProducto = () => {
     fetchProductos();
   }, []);
 
+  const handleEliminarProducto = async () =>{
+    try{
+      await Api.delete(`/deshabilitar/${id}`,productos);
+      navigate('/')
+    }catch (e) {
+      console.log("Error en handleEliminarProducto", e);
+    }
+  }
+
   return (
     <div className="m-3 p-3">
       <p className="font-bold bg-green-500 w-20 rounded text-white h-12">
@@ -54,6 +63,9 @@ const ListarProducto = () => {
                 <td className="border py-2 text-center">
                   <Link to={`/edit/${producto.id_producto}`} className="text-blue-500 hover:underline">
                     Editar
+                  </Link>
+                  <Link to={`/edit/${producto.id_producto}`} className="text-rose-500 hover:underline" onClick={handleEliminarProducto}>
+                    Eliminar
                   </Link>
                 </td>
               </tr>
