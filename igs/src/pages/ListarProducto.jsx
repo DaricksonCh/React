@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Api from '../components/Api';
+import Api from "../components/Api";
 import { Link } from "react-router-dom";
 
 const ListarProducto = () => {
@@ -8,30 +8,23 @@ const ListarProducto = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await Api.get('/listar');
+        const response = await Api.get("/listar");
         setProducto(response.data);
       } catch (e) {
-        console.error('Error fetching Productos:', e);
+        console.error("Error fetching Productos:", e);
       }
     };
     fetchProductos();
   }, []);
-
-  const handleEliminarProducto = async () =>{
-    try{
-      await Api.delete(`/deshabilitar/${id}`,productos);
-      navigate('/')
-    }catch (e) {
-      console.log("Error en handleEliminarProducto", e);
-    }
-  }
 
   return (
     <div className="m-3 p-3">
       <p className="font-bold bg-green-500 w-20 rounded text-white h-12">
         <Link to={`/registrarProducto`}>Registrar Producto</Link>
       </p>
-      <h1 className="text-center font-bold underline text-3xl my-3">Productos</h1>
+      <h1 className="text-center font-bold underline text-3xl my-3">
+        Productos
+      </h1>
       <div className="overflow-x-auto">
         <table className="min-w-full border bg-white">
           <thead className="bg-green-800 text-white">
@@ -52,20 +45,32 @@ const ListarProducto = () => {
             {productos.map((producto, index) => (
               <tr key={producto.id_producto}>
                 <td className="border py-2 text-center">{index + 1}</td>
-                <td className="border py-2 text-center">{producto.fecha_caducidad_producto}</td>
-                <td className="border py-2 text-center">{producto.cantidad_peso_producto}</td>
-                <td className="border py-2 text-center">{producto.unidad_peso_producto}</td>
-                <td className="border py-2 text-center">{producto.descripcion_producto}</td>
-                <td className="border py-2 text-center">{producto.precio_producto}</td>
+                <td className="border py-2 text-center">
+                  {producto.fecha_caducidad_producto}
+                </td>
+                <td className="border py-2 text-center">
+                  {producto.cantidad_peso_producto}
+                </td>
+                <td className="border py-2 text-center">
+                  {producto.unidad_peso_producto}
+                </td>
+                <td className="border py-2 text-center">
+                  {producto.descripcion_producto}
+                </td>
+                <td className="border py-2 text-center">
+                  {producto.precio_producto}
+                </td>
                 <td className="border py-2 text-center">{producto.fk_id_up}</td>
-                <td className="border py-2 text-center">{producto.fk_id_tipo_producto}</td>
+                <td className="border py-2 text-center">
+                  {producto.fk_id_tipo_producto}
+                </td>
                 <td className="border py-2 text-center">{producto.estado}</td>
                 <td className="border py-2 text-center">
-                  <Link to={`/edit/${producto.id_producto}`} className="text-blue-500 hover:underline">
-                    Editar
-                  </Link>
-                  <Link to={`/edit/${producto.id_producto}`} className="text-rose-500 hover:underline" onClick={handleEliminarProducto}>
-                    Eliminar
+                  <Link
+                    to={`/edit/${producto.id_producto}`}
+                    className="text-white bg-green-500 hover:bg-green-700 p-2 rounded-xl"
+                  >
+                    Acciones
                   </Link>
                 </td>
               </tr>
@@ -75,6 +80,6 @@ const ListarProducto = () => {
       </div>
     </div>
   );
-}
+};
 
 export default ListarProducto;

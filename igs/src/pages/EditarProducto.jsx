@@ -35,6 +35,15 @@ const EditarProducto = () =>{
     }
   };
 
+  const handleDeshabilitarProducto = async () =>{
+    try{
+      await Api.patch(`/deshabilitar/${id}`, producto);
+      navigate('/')
+    }catch (e) {
+      console.log("Error en handleEditarProducto", e);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-center font-bold underline text-3xl p-3 m-3">Editar Producto</h1>
@@ -61,6 +70,7 @@ const EditarProducto = () =>{
         <input type="number" className="shadow appearance-none border rounded w-full p-2 m-2 text-gray-700 laeding-tight focus:outline-none focus:shodow-outline" id="precio_producto" name="precio_producto" value={producto.precio_producto || ""} onChange={(e)=>{setProducto({...producto, precio_producto: e.target.value})}} placeholder="Precio del Producto"/>
       </div>
       <button type="subtmi" className="bg-green-500 hover:bg-blue-700 text-white font-bold p-2 m-2 rounded focus:outline-none focus:shadow-outline" onClick={handleEditarProducto}>Editar Producto</button>
+      <button type="subtmi" className="bg-rose-500 hover:bg-rose-700 text-white font-bold p-2 m-2 rounded focus:outline-none focus:shadow-outline" onClick={handleDeshabilitarProducto}>Eliminar Producto</button>
     </div>
   )
 }
