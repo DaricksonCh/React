@@ -8,7 +8,7 @@ const ListarProducto = () => {
   useEffect(() => {
     const fetchProductos = async () => {
       try {
-        const response = await Api.get("/listar");
+        const response = await Api.get('/listar')
         setProducto(response.data);
       } catch (e) {
         console.error("Error fetching Productos:", e);
